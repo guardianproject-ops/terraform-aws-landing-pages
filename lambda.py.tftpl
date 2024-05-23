@@ -1,0 +1,20 @@
+import random
+
+
+def lambda_handler(event, context):
+    request = event['Records'][0]['cf']['request']
+
+    if request['uri'] != '/index.html':
+        return request
+
+    experiments = [
+    %{ for choice in choices ~}
+        '${choice}',
+    %{ endfor ~}
+    ]
+
+    experimentUri = random.choice(experiments)
+
+    request['uri'] = experimentUri
+    print(f"Request uri set to {experimentUri}")
+    return request
