@@ -1,11 +1,5 @@
-image: python:3.10-bullseye
-
-stages:
-  - test
-
-test:lint:
-  stage: test
-  script:
-    - make init
-    - make git/submodules-update  ## Requires init before target available
-    - make lint                   ## Run Terraform linters and validation
+---
+include:
+  - project: guardianproject-ops/projects
+    ref: main
+    file: terraform_templates/tf-module.gitlab-ci.yml
